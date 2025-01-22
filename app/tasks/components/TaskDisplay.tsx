@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect } from "react";
-import { useTasksStore } from "../hooks/useTasksStore";
+import { useTasksStore } from "../../hooks/useTasksStore";
 import TaskCard from "./TaskCard";
+import { Task } from "@/app/interfaces/task.interface";
 
 const TaskDisplay = () => {
 
@@ -27,8 +28,8 @@ const TaskDisplay = () => {
                         </h4>
 
                         {
-                            tasks.map((task: any) => (
-                                <TaskCard task={task} key={task.title} />
+                            tasks.map((task: Task) => (
+                                <TaskCard task={task} key={task._id} />
                             ))
                         }
                     </div>

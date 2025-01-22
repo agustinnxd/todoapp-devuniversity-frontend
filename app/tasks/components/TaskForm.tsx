@@ -1,7 +1,7 @@
 'use client';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useTasksStore } from '../hooks/useTasksStore';
+import { useTasksStore } from '../../hooks/useTasksStore';
 import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 
@@ -11,7 +11,7 @@ type Inputs = {
 
 export default function TaskForm() {
 
-    const { startAddingTask, errors: submitErrors } = useTasksStore();
+    const { startAddingTask, errorMessage: submitErrors } = useTasksStore();
 
     const {
         register,
@@ -20,7 +20,6 @@ export default function TaskForm() {
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         startAddingTask(data);
-        console.log(errors);
 
     };
 
@@ -53,7 +52,7 @@ export default function TaskForm() {
                 }
 
                 {
-                    (errors.title && errors.title.type === 'maxLength') && <p className='text-red-500'>Title must be less than 20 characters</p>
+                    (errors.title && errors.title.type === 'maxLength') && <p className='text-red-500'>Title must be less than 21 characters</p>
                 }
 
             </form>

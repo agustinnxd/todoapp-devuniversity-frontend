@@ -1,22 +1,17 @@
 'use client';
 
-import { Provider } from 'react-redux';
-import store from './store/store';
-import { TaskPage } from './pages/TaskPage';
-import { UserProvider } from '@auth0/nextjs-auth0/client';
-import { LoginPage } from './pages/LoginPage';
-
+import React from 'react'
+import { TasksApp } from './pages/TasksApp'
+import { Provider } from 'react-redux'
+import store from './store/store'
 
 const page = () => {
 
-  return (
-    <UserProvider>
-      <Provider store={store}>
-        {/* <TaskPage /> */}
-        <LoginPage/>
-      </Provider>
-    </UserProvider>
-  )
+    return (
+        <Provider store={store}>
+            <TasksApp />
+        </Provider>
+    )
 }
 
 export default page

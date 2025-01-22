@@ -3,14 +3,18 @@
 import { useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { useTasksStore } from "../hooks/useTasksStore";
+import { useTasksStore } from "../../hooks/useTasksStore";
+import { Task } from "@/app/interfaces/task.interface";
 
 type Inputs = {
     title: string
 }
 
+interface Props {
+    task: Task
+}
 
-const TaskCard = ({ task }: any) => {
+const TaskCard = ({ task }: Props) => {
 
     const [editing, setEditing] = useState(false)
     const { startDeletingTask, startUpdatingTask } = useTasksStore();
@@ -22,17 +26,14 @@ const TaskCard = ({ task }: any) => {
     const {
         register,
         handleSubmit,
-        watch,
-        formState: { errors },
     } = useForm<Inputs>()
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const onSubmit: SubmitHandler<Inputs> = (data: Task) => {
         try {
-            startUpdatingTask(task._id, data)
+            startUpdatingTask(task._id!, data)
             setEditing(false)
         } catch (error) {
             throw error
-        }
-
+        };
     };
     return (
         <>
@@ -73,7 +74,7 @@ const TaskCard = ({ task }: any) => {
                                 </button>
                                 <button
                                     className="font-bold  text-red-600 mr-4"
-                                    onClick={() => startDeletingTask(task._id)}
+                                    onClick={() => startDeletingTask(task._id!)}
                                 >
                                     DELETE
                                 </button>

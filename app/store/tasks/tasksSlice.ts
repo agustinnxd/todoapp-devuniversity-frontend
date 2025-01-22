@@ -1,5 +1,6 @@
 'use client';
 
+import { Task } from "@/app/interfaces/task.interface";
 import { createSlice } from "@reduxjs/toolkit";
 
 export const tasksSlice = createSlice({
@@ -7,14 +8,17 @@ export const tasksSlice = createSlice({
     initialState: {
         tasks: <any>[],
         loading: true,
-        errors: '',
+        errorMessage: '', // used for managing tasks related errors
     },
     reducers: {
         onLoading: (state) => {
             state.loading = true;
         },
+        onNotLoading: (state) => {
+            state.loading = false;
+        },
         onLoadErrors: (state, { payload }) => {
-            state.errors = payload;
+            state.errorMessage = payload;
             state.loading = false;
         },
         onLoadTasks: (state, { payload }) => {
@@ -26,12 +30,17 @@ export const tasksSlice = createSlice({
             state.loading = false;
         },
         onDeleteTask: (state, { payload }) => {
-            state.tasks = state.tasks.filter((task: any) => task._id !== payload);
+            state.tasks = state.tasks.filter((task: Task) => task._id !== payload);
             state.loading = false;
         },
         onUpdateTask: (state, { payload }) => {
-            state.tasks = state.tasks.map((task: any) => (task._id !== payload._id) ? task : payload)
+            state.tasks = state.tasks.map((task: Task) => (task._id !== payload._id) ? task : payload)
             state.loading = false;
+        },
+        onLogoutTasks: (state) => {
+            state.loading = false
+            state.tasks = []
+            state.errorMessage = ''
         }
     }
 })
@@ -43,4 +52,6 @@ export const {
     onDeleteTask,
     onUpdateTask,
     onLoadErrors,
+    onLogoutTasks,
+    onNotLoading
 } = tasksSlice.actions
