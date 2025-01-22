@@ -1,10 +1,7 @@
 'use client';
 
 import axios from 'axios';
-import { config } from '../../config/index';
 
-const usersApi = axios.create({
-    baseURL: config.API_URL
-});
+const usersApi = axios.create();
 
 export default usersApi;

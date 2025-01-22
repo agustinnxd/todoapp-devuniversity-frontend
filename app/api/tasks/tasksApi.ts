@@ -1,11 +1,8 @@
 'use client';
 
 import axios from 'axios';
-import { config } from '../../config/index';
 
-const taskApi = axios.create({
-    baseURL: config.API_URL
-});
+const taskApi = axios.create();
 
 taskApi.interceptors.request.use((config: any) => {
     config.headers = {
